@@ -45,6 +45,7 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -84,14 +85,11 @@ public class JsonLootBagsCommand extends CommandBase
             EntityPlayerMP player = getCommandSenderAsPlayer(p_71515_1_);
             ItemStack stack = player.getHeldItem();
             if (stack == null) throw new CommandException("You aren't holding anything.");
-            
-            String json = Constants.GSON.toJson(stack);
-            FileUtils.writeStringToFile(new File("JsonLootBags-NBTdump.txt"), json);
-            ItemStack stack1 = Constants.GSON.fromJson(json, ItemStack.class);
 
-            EntityItem entityitem = player.dropPlayerItemWithRandomChoice(stack1, false);
-            entityitem.delayBeforeCanPickup = 0;
-            entityitem.func_145797_a(player.getCommandSenderName());
+            FileUtils.write(new File("JsonLootBags-NBTdump.txt"), "// Dump from " + p_71515_1_.getCommandSenderName() +
+                            "\n// Item name: " + stack.getDisplayName() +
+                            "\n// Timestamp: " + new Date().toString() +
+                            '\n' + Constants.GSON.toJson(stack) + '\n', true);
         }
         catch (Exception e)
         {
