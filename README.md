@@ -88,7 +88,7 @@ Fist of all, an example:
     "item": "minecraft:stick",
     "stacksize": 1,
     "damage": 0,
-    "nbt": 
+    "nbt": {}
   }
 }
 ```
