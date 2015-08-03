@@ -44,7 +44,9 @@ import java.util.Map;
  */
 public class JsonNBT implements JsonSerializer<NBTBase>, JsonDeserializer<NBTBase>
 {
-    public static final Type TYPE = new TypeToken<NBTBase>() {}.getType();
+    public static final Type TYPE = new TypeToken<NBTBase>()
+    {
+    }.getType();
 
     @Override
     public NBTBase deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException
@@ -117,7 +119,7 @@ public class JsonNBT implements JsonSerializer<NBTBase>, JsonDeserializer<NBTBas
                         {
                             if (astring.length <= 1)
                             {
-                                return new NBTTagIntArray(new int[] {Integer.parseInt(s.trim())});
+                                return new NBTTagIntArray(new int[]{Integer.parseInt(s.trim())});
                             }
                             else
                             {
@@ -154,7 +156,7 @@ public class JsonNBT implements JsonSerializer<NBTBase>, JsonDeserializer<NBTBas
             }
             else
             {
-                return new NBTTagByte((byte)(Boolean.parseBoolean(string) ? 1 : 0));
+                return new NBTTagByte((byte) (Boolean.parseBoolean(string) ? 1 : 0));
             }
         }
         throw new JsonParseException("Invalid NBT: " + json.toString());

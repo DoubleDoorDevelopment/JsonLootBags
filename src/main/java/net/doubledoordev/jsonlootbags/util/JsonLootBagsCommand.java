@@ -35,16 +35,13 @@ package net.doubledoordev.jsonlootbags.util;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -66,18 +63,6 @@ public class JsonLootBagsCommand extends CommandBase
     }
 
     @Override
-    public boolean canCommandSenderUseCommand(ICommandSender p_71519_1_)
-    {
-        return p_71519_1_ instanceof EntityPlayer && (MinecraftServer.getServer().isSinglePlayer() || MinecraftServer.getServer().getConfigurationManager().func_152596_g(((EntityPlayer) p_71519_1_).getGameProfile()));
-    }
-
-    @Override
-    public List addTabCompletionOptions(ICommandSender p_71516_1_, String[] p_71516_2_)
-    {
-        return getListOfStringsMatchingLastWord(p_71516_2_, "dumpNBT");
-    }
-
-    @Override
     public void processCommand(ICommandSender p_71515_1_, String[] p_71515_2_)
     {
         try
@@ -87,14 +72,26 @@ public class JsonLootBagsCommand extends CommandBase
             if (stack == null) throw new CommandException("You aren't holding anything.");
 
             FileUtils.write(new File("JsonLootBags-NBTdump.txt"), "// Dump from " + p_71515_1_.getCommandSenderName() +
-                            "\n// Item name: " + stack.getDisplayName() +
-                            "\n// Timestamp: " + new Date().toString() +
-                            '\n' + Constants.GSON.toJson(stack) + '\n', true);
+                    "\n// Item name: " + stack.getDisplayName() +
+                    "\n// Timestamp: " + new Date().toString() +
+                    '\n' + Constants.GSON.toJson(stack) + '\n', true);
         }
         catch (Exception e)
         {
             e.printStackTrace();
             throw new CommandException(e.getMessage());
         }
+    }
+
+    @Override
+    public boolean canCommandSenderUseCommand(ICommandSender p_71519_1_)
+    {
+        return p_71519_1_ instanceof EntityPlayer && (MinecraftServer.getServer().isSinglePlayer() || MinecraftServer.getServer().getConfigurationManager().func_152596_g(((EntityPlayer) p_71519_1_).getGameProfile()));
+    }
+
+    @Override
+    public List addTabCompletionOptions(ICommandSender p_71516_1_, String[] p_71516_2_)
+    {
+        return getListOfStringsMatchingLastWord(p_71516_2_, "dumpNBT");
     }
 }

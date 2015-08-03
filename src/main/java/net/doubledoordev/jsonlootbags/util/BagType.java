@@ -35,11 +35,9 @@ package net.doubledoordev.jsonlootbags.util;
 import net.doubledoordev.jsonlootbags.JsonLootBags;
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.EnumRarity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.WeightedRandomChestContent;
-import net.minecraftforge.common.ChestGenHooks;
 
 import java.awt.*;
 import java.util.*;
@@ -52,7 +50,6 @@ public class BagType
 {
     private static final Map<String, BagType> bagTypeMap = new HashMap<>();
 
-    private String name;
     public String itemname;
     public Color color;
     public int invSlotsMin = 36;
@@ -60,23 +57,8 @@ public class BagType
     public int amountOfItemsMin = 1;
     public int amountOfItemsMax = 10;
     public WeightedRandomChestContent[] items;
-//    public Map<String, MinMaxWeight> asLoot = new HashMap<>();
     public EnumRarity rarity = EnumRarity.common;
-
-    private void init()
-    {
-//        for (Map.Entry<String, MinMaxWeight> entry : asLoot.entrySet())
-//        {
-//            ChestGenHooks chestGenHooks = ChestGenHooks.getInfo(entry.getKey());
-//            MinMaxWeight mmw = entry.getValue();
-//            chestGenHooks.addItem(new WeightedRandomChestContent(JsonLootBags.instance.bag, 0, mmw.min, mmw.max, mmw.weight));
-//        }
-    }
-
-    public String getName()
-    {
-        return name;
-    }
+    private String name;
 
     public static BagType getFromStack(ItemStack stack)
     {
@@ -85,19 +67,28 @@ public class BagType
         return bagTypeMap.get(tagCompound.getString("type"));
     }
 
+    public static void register(String name, BagType bagType)
+    {
+        bagType.name = name;
+        bagTypeMap.put(name, bagType);
+    }
+
+    public static Iterable<? extends BagType> getAllTypes()
+    {
+        return bagTypeMap.values();
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
     public ItemStack getBagStack()
     {
         ItemStack stack = new ItemStack(JsonLootBags.instance.bag);
         stack.stackTagCompound = new NBTTagCompound();
         stack.stackTagCompound.setString("type", name);
         return stack;
-    }
-
-    public static void register(String name, BagType bagType)
-    {
-        bagType.name = name;
-        bagType.init();
-        bagTypeMap.put(name, bagType);
     }
 
     public List<ItemStack> getRandomItems(Random rand)
@@ -111,11 +102,6 @@ public class BagType
             if (stack != null) list.add(stack);
         }
         return list;
-    }
-
-    public static Iterable<? extends BagType> getAllTypes()
-    {
-        return bagTypeMap.values();
     }
 
     public static class MinMaxWeight

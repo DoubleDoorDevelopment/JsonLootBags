@@ -33,47 +33,26 @@
 package net.doubledoordev.jsonlootbags.util.jsonparsing;
 
 import com.google.gson.*;
-import com.google.gson.reflect.TypeToken;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.WeightedRandomChestContent;
+import net.minecraft.item.EnumRarity;
 
 import java.lang.reflect.Type;
 
 /**
  * @author Dries007
- *         <p/>
- *         json object with properties:
- *         - itemstack: The itemstack
- * @see net.doubledoordev.jsonlootbags.util.jsonparsing.JsonItemStack
- * - min: The minimum number of these items.
- * - max: The maximum number of these items.
- * - weight: How often the item is chosen. (Higher is more)
  */
-public class JsonWeightedRandomChestContent implements JsonSerializer<WeightedRandomChestContent>, JsonDeserializer<WeightedRandomChestContent>
+public class JsonEnumRarity implements JsonSerializer<EnumRarity>, JsonDeserializer<EnumRarity>
 {
-    public static final Type TYPE = new TypeToken<WeightedRandomChestContent>()
-    {
-    }.getType();
-
     @Override
-    public WeightedRandomChestContent deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException
+    public EnumRarity deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException
     {
-        JsonObject object = json.getAsJsonObject();
-        ItemStack stack = context.deserialize(object.get("itemstack"), JsonItemStack.TYPE);
-        int min = object.get("min").getAsInt();
-        int max = object.get("max").getAsInt();
-        int weight = object.get("weight").getAsInt();
-        return new WeightedRandomChestContent(stack, min, max, weight);
+        String name = json.getAsString();
+        for (EnumRarity rarity : EnumRarity.values()) if (rarity.rarityName.equalsIgnoreCase(name) || rarity.name().equalsIgnoreCase(name)) return rarity;
+        return EnumRarity.common;
     }
 
     @Override
-    public JsonElement serialize(WeightedRandomChestContent src, Type typeOfSrc, JsonSerializationContext context)
+    public JsonElement serialize(EnumRarity src, Type typeOfSrc, JsonSerializationContext context)
     {
-        JsonObject object = new JsonObject();
-        object.addProperty("min", src.theMinimumChanceToGenerateItem);
-        object.addProperty("max", src.theMaximumChanceToGenerateItem);
-        object.addProperty("weight", src.itemWeight);
-        object.add("itemstack", context.serialize(src.theItemId));
-        return object;
+        return new JsonPrimitive(src.rarityName);
     }
 }

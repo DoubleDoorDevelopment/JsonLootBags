@@ -61,14 +61,6 @@ public class ItemBag extends Item
     }
 
     @Override
-    public String getItemStackDisplayName(ItemStack stack)
-    {
-        BagType bagType = BagType.getFromStack(stack);
-        if (bagType == null) return "Invalid loot bag!";
-        return bagType.itemname;
-    }
-
-    @Override
     public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
     {
         if (!world.isRemote)
@@ -84,17 +76,6 @@ public class ItemBag extends Item
         return stack;
     }
 
-    @SuppressWarnings("unchecked")
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void getSubItems(Item item, CreativeTabs tab, List list)
-    {
-        for (BagType type : BagType.getAllTypes())
-        {
-            list.add(type.getBagStack());
-        }
-    }
-
     @Override
     @SideOnly(Side.CLIENT)
     public int getColorFromItemStack(ItemStack stack, int pass)
@@ -105,10 +86,29 @@ public class ItemBag extends Item
     }
 
     @Override
+    public String getItemStackDisplayName(ItemStack stack)
+    {
+        BagType bagType = BagType.getFromStack(stack);
+        if (bagType == null) return "Invalid loot bag!";
+        return bagType.itemname;
+    }
+
+    @Override
     public EnumRarity getRarity(ItemStack stack)
     {
         BagType bagType = BagType.getFromStack(stack);
         if (bagType == null) return EnumRarity.common;
         return bagType.rarity;
+    }
+
+    @SuppressWarnings("unchecked")
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void getSubItems(Item item, CreativeTabs tab, List list)
+    {
+        for (BagType type : BagType.getAllTypes())
+        {
+            list.add(type.getBagStack());
+        }
     }
 }

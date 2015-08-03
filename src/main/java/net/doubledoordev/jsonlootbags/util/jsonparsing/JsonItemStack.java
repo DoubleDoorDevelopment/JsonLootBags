@@ -44,7 +44,9 @@ import java.lang.reflect.Type;
  */
 public class JsonItemStack implements JsonSerializer<ItemStack>, JsonDeserializer<ItemStack>
 {
-    public static final Type TYPE = new TypeToken<ItemStack>(){}.getType();
+    public static final Type TYPE = new TypeToken<ItemStack>()
+    {
+    }.getType();
 
     @Override
     public ItemStack deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException

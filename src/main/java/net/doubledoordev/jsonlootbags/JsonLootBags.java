@@ -35,7 +35,6 @@ package net.doubledoordev.jsonlootbags;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.event.FMLServerStartedEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.doubledoordev.jsonlootbags.items.ItemBag;
@@ -53,8 +52,8 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.util.*;
 import java.util.List;
+import java.util.Random;
 
 import static net.minecraftforge.common.ChestGenHooks.*;
 
@@ -66,9 +65,8 @@ public class JsonLootBags
 {
     @Mod.Instance(Constants.MODID)
     public static JsonLootBags instance;
-
-    private File folder;
     public ItemBag bag;
+    private File folder;
     private boolean makeexamples;
 
     @Mod.EventHandler
@@ -93,7 +91,7 @@ public class JsonLootBags
             Random random = new Random();
             Field contents = ChestGenHooks.class.getDeclaredField("contents");
             contents.setAccessible(true);
-            for (String name : new String[] {DUNGEON_CHEST, BONUS_CHEST, VILLAGE_BLACKSMITH, STRONGHOLD_CROSSING, STRONGHOLD_LIBRARY, STRONGHOLD_CORRIDOR, PYRAMID_JUNGLE_DISPENSER, PYRAMID_JUNGLE_CHEST, PYRAMID_DESERT_CHEST, MINESHAFT_CORRIDOR})
+            for (String name : new String[]{DUNGEON_CHEST, BONUS_CHEST, VILLAGE_BLACKSMITH, STRONGHOLD_CROSSING, STRONGHOLD_LIBRARY, STRONGHOLD_CORRIDOR, PYRAMID_JUNGLE_DISPENSER, PYRAMID_JUNGLE_CHEST, PYRAMID_DESERT_CHEST, MINESHAFT_CORRIDOR})
             {
                 //noinspection unchecked
                 List<WeightedRandomChestContent> list = (List<WeightedRandomChestContent>) contents.get(ChestGenHooks.getInfo(name));

@@ -34,10 +34,8 @@ package net.doubledoordev.jsonlootbags.util;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import net.doubledoordev.jsonlootbags.util.jsonparsing.JsonColor;
-import net.doubledoordev.jsonlootbags.util.jsonparsing.JsonItemStack;
-import net.doubledoordev.jsonlootbags.util.jsonparsing.JsonNBT;
-import net.doubledoordev.jsonlootbags.util.jsonparsing.JsonWeightedRandomChestContent;
+import net.doubledoordev.jsonlootbags.util.jsonparsing.*;
+import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.util.WeightedRandomChestContent;
@@ -56,5 +54,6 @@ public class Constants
             .registerTypeHierarchyAdapter(WeightedRandomChestContent.class, new JsonWeightedRandomChestContent())
             .registerTypeHierarchyAdapter(ItemStack.class, new JsonItemStack())
             .registerTypeHierarchyAdapter(NBTBase.class, new JsonNBT())
+            .registerTypeHierarchyAdapter(EnumRarity.class, new JsonEnumRarity())
             .create();
 }
