@@ -32,6 +32,7 @@
 
 package net.doubledoordev.jsonlootbags.util;
 
+import com.google.gson.annotations.Expose;
 import net.doubledoordev.jsonlootbags.JsonLootBags;
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.EnumRarity;
@@ -50,15 +51,15 @@ public class BagType
 {
     private static final Map<String, BagType> bagTypeMap = new HashMap<>();
 
+    private String name;
     public String itemname;
     public Color color;
     public int invSlotsMin = 36;
     public int invSlotsMax = 36;
     public int amountOfItemsMin = 1;
     public int amountOfItemsMax = 10;
-    public WeightedRandomChestContent[] items;
     public EnumRarity rarity = EnumRarity.common;
-    private String name;
+    public WeightedRandomChestContent[] items;
 
     public static BagType getFromStack(ItemStack stack)
     {
@@ -102,10 +103,5 @@ public class BagType
             if (stack != null) list.add(stack);
         }
         return list;
-    }
-
-    public static class MinMaxWeight
-    {
-        public int min, max, weight;
     }
 }
