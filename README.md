@@ -28,7 +28,7 @@ Json format
 
 Per lootbag, you make 1 json file. The extension needs to be .json! The name of the file doesn't matter.
 
-*** Everything is always CASE SENSITIVE unless specifically stated otherwise. ***
+***Everything is always CASE SENSITIVE unless specifically stated otherwise.***
 
 ### Json template
 ```javascript
