@@ -1,0 +1,12 @@
+{
+  "loot-table": "jsonlootbags:fishing",
+  "name": "bag1",
+  "human-name": "Example bag",
+  "texture": "jsonlootbags:bag",
+  "rarity": "Epic",
+  "effect": true,
+  "colors": [
+    "0x90C3D4",
+    "#DB32DB"
+  ]
+}

@@ -1,0 +1,7 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "jsonlootbags:items/bag_bg",
+        "layer1": "jsonlootbags:items/bag_string"
+    }
+}

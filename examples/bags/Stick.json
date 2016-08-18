@@ -1,0 +1,6 @@
+{
+  "loot-table": "jsonlootbags:fishing/junk",
+  "name": "stick",
+  "texture": "stick",
+  "human-name": "Stick"
+}
