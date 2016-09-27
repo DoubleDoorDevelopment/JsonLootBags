@@ -33,7 +33,6 @@ package net.doubledoordev.jsonlootbags.util;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParseException;
-import net.minecraft.item.EnumRarity;
 
 public class Helper
 {

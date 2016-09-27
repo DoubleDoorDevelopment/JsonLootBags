@@ -39,6 +39,7 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.commons.io.FileUtils;
@@ -59,6 +60,7 @@ public class JsonLootBags
 
     private Logger logger;
     private Configuration config;
+    private File folder;
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) throws Exception
@@ -70,10 +72,8 @@ public class JsonLootBags
         config = new Configuration();
         updateConfig();
 
-        File folder = new File(event.getModConfigurationDirectory(), MODID);
+        folder = new File(event.getModConfigurationDirectory(), MODID);
         if (!folder.exists()) folder.mkdir();
-
-        LootTableHook.init(new File(folder, "tables"));
 
         {
             File bagsFolder = new File(folder, "bags");
@@ -101,6 +101,12 @@ public class JsonLootBags
     public void init(FMLInitializationEvent event)
     {
         if (event.getSide().isClient()) ClientHelper.init();
+    }
+
+    @Mod.EventHandler
+    public void postInit(FMLPostInitializationEvent event)
+    {
+        LootTableHook.init(new File(folder, "tables"));
     }
 
     @SubscribeEvent

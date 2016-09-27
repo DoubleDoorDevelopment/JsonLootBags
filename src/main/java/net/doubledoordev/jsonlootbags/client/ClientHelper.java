@@ -32,26 +32,15 @@
 package net.doubledoordev.jsonlootbags.client;
 
 import net.doubledoordev.d3core.events.D3LanguageInjectEvent;
-import net.doubledoordev.jsonlootbags.JsonLootBags;
 import net.doubledoordev.jsonlootbags.item.ItemLootBag;
-import net.doubledoordev.jsonlootbags.util.Constants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemMeshDefinition;
-import net.minecraft.client.renderer.ItemModelMesher;
-import net.minecraft.client.renderer.RenderItem;
-import net.minecraft.client.renderer.block.model.ModelBlock;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.color.IItemColor;
-import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.ICustomModelLoader;
-import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class ClientHelper
