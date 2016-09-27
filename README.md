@@ -28,7 +28,7 @@ You can use that to manipulate the drops a within 1 loot table. You are not requ
 Json format
 -----------
 
-```json
+```json5
 {
     "loot-table": "minecraft:chests/village_blacksmith", // REQUIRED What loot table to use. See above.
     "name": "bag1",                 // REQUIRED Internal item name: alphanumerical and underscores only
@@ -44,3 +44,6 @@ Json format
 }
 ```
 
+(You cannot include comments into the file)
+
+For an example of what a `config/JsonLootBags` folder may look like, see [examples](examples).
