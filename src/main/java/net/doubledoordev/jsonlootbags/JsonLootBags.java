@@ -91,7 +91,7 @@ public class JsonLootBags
             Random random = new Random();
             Field contents = ChestGenHooks.class.getDeclaredField("contents");
             contents.setAccessible(true);
-            for (String name : new String[]{DUNGEON_CHEST, BONUS_CHEST, VILLAGE_BLACKSMITH, STRONGHOLD_CROSSING, STRONGHOLD_LIBRARY, STRONGHOLD_CORRIDOR, PYRAMID_JUNGLE_DISPENSER, PYRAMID_JUNGLE_CHEST, PYRAMID_DESERT_CHEST, MINESHAFT_CORRIDOR})
+            for (String name : new String[] {DUNGEON_CHEST, BONUS_CHEST, VILLAGE_BLACKSMITH, STRONGHOLD_CROSSING, STRONGHOLD_LIBRARY, STRONGHOLD_CORRIDOR, PYRAMID_JUNGLE_DISPENSER, PYRAMID_JUNGLE_CHEST, PYRAMID_DESERT_CHEST, MINESHAFT_CORRIDOR})
             {
                 //noinspection unchecked
                 List<WeightedRandomChestContent> list = (List<WeightedRandomChestContent>) contents.get(ChestGenHooks.getInfo(name));

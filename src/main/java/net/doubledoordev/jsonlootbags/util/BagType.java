@@ -32,7 +32,6 @@
 
 package net.doubledoordev.jsonlootbags.util;
 
-import com.google.gson.annotations.Expose;
 import net.doubledoordev.jsonlootbags.JsonLootBags;
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.EnumRarity;

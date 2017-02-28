@@ -67,7 +67,11 @@ public class ItemBag extends Item
         {
             BagType bagType = BagType.getFromStack(stack);
             if (bagType == null) return stack;
-            player.inventory.decrStackSize(player.inventory.currentItem, 1);
+            // player.inventory.decrStackSize(player.inventory.currentItem, 1);
+            if (!player.capabilities.isCreativeMode)
+            {
+                --stack.stackSize;
+            }
             for (ItemStack lootStack : bagType.getRandomItems(world.rand))
             {
                 world.spawnEntityInWorld(new EntityItem(world, player.posX, player.posY, player.posZ, lootStack));

@@ -8,3 +8,4 @@ out
 .idea
 *.txt
 *.json
+!LICENSE.txt
