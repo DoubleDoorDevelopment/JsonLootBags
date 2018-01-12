@@ -35,7 +35,7 @@ import net.doubledoordev.d3core.util.CoreConstants;
 
 public class Constants
 {
-    public static final String MODID = "JsonLootBags";
+    public static final String MODID = "jsonlootbags";
     public static final String UPDATE_URL = CoreConstants.BASE_URL + MODID + ".json";
 
     /**

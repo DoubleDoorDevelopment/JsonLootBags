@@ -33,6 +33,7 @@ package net.doubledoordev.jsonlootbags.client;
 
 import net.doubledoordev.d3core.events.D3LanguageInjectEvent;
 import net.doubledoordev.jsonlootbags.item.ItemLootBag;
+import net.doubledoordev.jsonlootbags.util.Constants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -40,17 +41,17 @@ import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
 
-public class ClientHelper
+@Mod.EventBusSubscriber(modid = Constants.MODID, value = Side.CLIENT)
+public final class ClientHelper
 {
-    public static final ClientHelper I = new ClientHelper();
-
+    private ClientHelper() {}
+    
     public static void preInit()
     {
-        MinecraftForge.EVENT_BUS.register(I);
-
         for (final ItemLootBag item : ItemLootBag.getLootBags())
         {
             // IDK which one is effective, or which one is recommended. So I'm using them all.
@@ -72,7 +73,7 @@ public class ClientHelper
     {
         Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new IItemColor() {
             @Override
-            public int getColorFromItemstack(ItemStack stack, int tintIndex)
+            public int colorMultiplier(ItemStack stack, int tintIndex)
             {
                 return ((ItemLootBag) stack.getItem()).getColor(stack, tintIndex);
             }
@@ -80,7 +81,7 @@ public class ClientHelper
     }
 
     @SubscribeEvent
-    public void d3LanguageInjectEvent(D3LanguageInjectEvent event)
+    public static void d3LanguageInjectEvent(D3LanguageInjectEvent event)
     {
         for (ItemLootBag axe : ItemLootBag.getLootBags())
         {

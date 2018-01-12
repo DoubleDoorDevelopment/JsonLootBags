@@ -36,6 +36,7 @@ import net.doubledoordev.jsonlootbags.JsonLootBags;
 import net.doubledoordev.jsonlootbags.util.Constants;
 import net.doubledoordev.jsonlootbags.util.Helper;
 import net.doubledoordev.jsonlootbags.util.LootTableHook;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -56,6 +57,7 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -105,7 +107,7 @@ public class ItemLootBag extends Item
     {
         try
         {
-            return GSON.fromJson(FileUtils.readFileToString(file), ItemLootBag.class);
+            return GSON.fromJson(FileUtils.readFileToString(file, Charset.defaultCharset()), ItemLootBag.class);
         }
         catch (Exception e)
         {
@@ -144,7 +146,7 @@ public class ItemLootBag extends Item
         setUnlocalizedName(Constants.MODID.toLowerCase() + Character.toUpperCase(name.charAt(0)) + name.substring(1));
         setRegistryName(Constants.MODID.toLowerCase(), name);
 
-        GameRegistry.register(this);
+        GameRegistry.findRegistry(Item.class).register(this);
 
         JsonLootBags.getLogger().info("Successfully loaded {}", this);
     }
@@ -164,19 +166,19 @@ public class ItemLootBag extends Item
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand)
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand)
     {
-        if (!playerIn.capabilities.isCreativeMode) --itemStackIn.stackSize;
+        if (!playerIn.capabilities.isCreativeMode) playerIn.getHeldItem(hand).shrink(1);
         if (!worldIn.isRemote)
         {
-            for (ItemStack stack : LootTableHook.makeLoot((WorldServer) worldIn, playerIn, getLuck(itemStackIn), this.table))
+            for (ItemStack stack : LootTableHook.makeLoot((WorldServer) worldIn, playerIn, getLuck(playerIn.getHeldItem(hand)), this.table))
             {
                 EntityItem entityitem = new EntityItem(worldIn, playerIn.posX, playerIn.posY, playerIn.posZ, stack);
                 entityitem.setNoPickupDelay();
-                worldIn.spawnEntityInWorld(entityitem);
+                worldIn.spawnEntity(entityitem);
             }
         }
-        return new ActionResult<>(EnumActionResult.SUCCESS, itemStackIn);
+        return new ActionResult<>(EnumActionResult.SUCCESS, playerIn.getHeldItem(hand));
     }
 
     @Override
@@ -193,11 +195,11 @@ public class ItemLootBag extends Item
     }
 
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced)
+    public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag advanced)
     {
         float luck = getLuck(stack);
         if (luck != 0) tooltip.add("Luck: " + luck);
-        super.addInformation(stack, playerIn, tooltip, advanced);
+        super.addInformation(stack, worldIn, tooltip, advanced);
     }
 
     private float getLuck(ItemStack stack)

@@ -44,7 +44,7 @@ public class Helper
     }
 
     @SafeVarargs
-    public static <T extends Enum> T getEnum(String name, boolean mustMatch, T... values)
+    public static <T extends Enum<?>> T getEnum(String name, boolean mustMatch, T... values)
     {
         for (T i : values)
         {
