@@ -52,7 +52,7 @@ import java.util.Set;
 
 import static net.doubledoordev.jsonlootbags.util.Constants.*;
 
-@Mod(modid = MODID, name = MODID, updateJSON = UPDATE_URL, guiFactory = MOD_GUI_FACTORY, dependencies = "required-after:D3Core@[1.3,)")
+@Mod(modid = MODID, name = MODID, updateJSON = UPDATE_URL, guiFactory = MOD_GUI_FACTORY, dependencies = "required-after:d3core@[1.3,)")
 public class JsonLootBags
 {
     @Mod.Instance(MODID)

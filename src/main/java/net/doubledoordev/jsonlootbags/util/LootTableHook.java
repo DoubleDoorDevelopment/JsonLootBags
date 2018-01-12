@@ -101,7 +101,7 @@ public class LootTableHook extends LootTableManager
         Set<String> errors = new HashSet<>();
         for (File file : FileUtils.listFiles(tablesFolder, new String[]{"json"}, true))
         {
-            String name = FilenameUtils.removeExtension(basePath.relativize(file.toPath()).toString());
+            String name = FilenameUtils.separatorsToUnix(FilenameUtils.removeExtension(basePath.relativize(file.toPath()).toString()));
             if (cache.getUnchecked(new ResourceLocation(Constants.MODID.toLowerCase(), name)) == null)
                 errors.add(name);
         }
@@ -127,7 +127,7 @@ public class LootTableHook extends LootTableManager
     @Override
     public LootTable getLootTableFromLocation(ResourceLocation location)
     {
-        LootTable table = instance.cache.getIfPresent(location);
+        LootTable table = cache.getIfPresent(location);
         if (table == null) table = fallback.getLootTableFromLocation(location);
         return table;
     }
@@ -141,7 +141,7 @@ public class LootTableHook extends LootTableManager
             if (!file.exists()) return null;
             if (!file.isFile()) throw new IllegalArgumentException(file + " has to be a file, not a folder.");
 
-            return ForgeHooks.loadLootTable(GSON_INSTANCE, key, Files.toString(file, Charsets.UTF_8), true);
+            return ForgeHooks.loadLootTable(GSON_INSTANCE, key, Files.toString(file, Charsets.UTF_8), true, LootTableHook.instance);
         }
     }
 }

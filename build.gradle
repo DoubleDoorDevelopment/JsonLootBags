@@ -11,7 +11,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
         classpath group: 'com.github.rodionmoiseev.gradle.plugins', name: 'idea-utils', version: '0.2'
     }
 }
@@ -38,9 +38,9 @@ archivesBaseName = 'JsonLootBags'
 def githuborg = 'DoubleDoorDevelopment'
 def description = 'Json Loot bags'
 minecraft {
-    version = "1.9.4-12.17.0.1976"
+    version = "1.12.2-14.23.1.2587"
     runDir = "jars"
-    mappings = "stable_26"
+    mappings = "snapshot_20171003"
 }
 
 repositories {
