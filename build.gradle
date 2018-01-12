@@ -51,7 +51,7 @@ repositories {
 }
 
 dependencies {
-    compile "net.doubledoordev.d3core:D3Core:" + project.minecraft.version + "-+:dev"
+    //compile "net.doubledoordev.d3core:D3Core:" + project.minecraft.version + "-+:dev"
 }
 
 if (System.getenv().BUILD_NUMBER != null) version += "." + System.getenv().BUILD_NUMBER
